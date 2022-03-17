@@ -11,92 +11,8 @@ const { networkId } = getConfig('development')
 
 const submitButton = document.querySelector('form button')
 
-//metadata of contract
-document.getElementById('nft-metadata').onclick = async (event) => {
-  console.log("Starting")
-
-  const button = event.target
-  button.disabled = true
-
-  let result;
-
-  try {
-    // make an update call to the smart contract
-    result= await window.nft_contract.nft_metadata()
-    result=JSON.stringify(result,undefined, 4)
-  } 
-  catch (e) {
-    alert(
-      'Something went wrong! ' +
-      'Maybe you need to sign out and back in? ' +
-      'Check your browser console for more info.'
-    )
-    throw e
-  } 
-  finally {
-    // re-enable the form, whether the call succeeded or failed
-    button.disabled = false
-  }
-
-  // update the greeting in the UI
-  document.getElementById('content').textContent=result;
-}
-
-//total supply in contract
-document.getElementById('nft-total-supply').onclick = async (event) => {
-  const button = event.target
-  button.disabled = true
-
-  let result;
-
-  try {
-    // make an update call to the smart contract
-    result= await window.nft_contract.nft_total_supply()
-  } catch (e) {
-    alert(
-      'Something went wrong! ' +
-      'Maybe you need to sign out and back in? ' +
-      'Check your browser console for more info.'
-    )
-    throw e
-  } finally {
-    // re-enable the form, whether the call succeeded or failed
-    button.disabled = false
-  }
-
-  // update the greeting in the UI
-  document.getElementById('content').textContent=result;
-}
-
-//query token using nft_tokens_for_account
-document.getElementById('find-token').onclick = async (event) => {
-  const button = event.target
-  button.disabled = true
-
-  let result;
-  const account=document.getElementById("account-id").value;
-
-  try {
-    // make an update call to the smart nft_contract
-    result= await window.nft_contract.nft_tokens_for_owner({account_id:account, limit:10});
-    tokenModal(result);
-    
-  } catch (e) {
-    alert(
-      'Something went wrong! ' +
-      'Maybe you need to sign out and back in? ' +
-      'Check your browser console for more info.'
-    )
-    throw e
-  } finally {
-    // re-enable the form, whether the call succeeded or failed
-    button.disabled = false
-  }
-
-}
-
 //mint
-document.getElementById('submit_form').onclick = async (event) => {
+document.getElementById('mint_form').onclick = async (event) => {
   const button = event.target
   button.disabled = true
 
@@ -130,6 +46,33 @@ document.getElementById('submit_form').onclick = async (event) => {
     // re-enable the form, whether the call succeeded or failed
     button.disabled = false
   }
+}
+
+//query token using nft_tokens_for_account
+document.getElementById('find-token').onclick = async (event) => {
+  const button = event.target
+  button.disabled = true
+
+  let result;
+  const account=document.getElementById("account-id").value;
+
+  try {
+    // make an update call to the smart nft_contract
+    result= await window.nft_contract.nft_tokens_for_owner({account_id:account, limit:10});
+    tokenModal(result);
+    
+  } catch (e) {
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'
+    )
+    throw e
+  } finally {
+    // re-enable the form, whether the call succeeded or failed
+    button.disabled = false
+  }
+
 }
 
 function tokenModal(result){
@@ -306,6 +249,73 @@ async function buy(e){
     )
     throw e
   }
+}
+
+//Deposit storage on marketplace
+document.getElementById('deposit_storage').onclick=async()=>{
+
+  const amount=parseFloat(document.getElementById('storage_amount').value);
+
+  if (!amount){
+    alert("Please fill the field appropriately.");
+    return;
+  }
+
+  if(typeof(amount)!="number")
+    alert("Deposit must be a number")
+
+  const deposit=(amount*NEAR_IN_YOCTO).toLocaleString('fullwide', {useGrouping:false});
+
+  try{
+    await window.marketplace_contract.storage_deposit({},
+                                              "300000000000000",
+                                              deposit);
+  }
+  catch(e){
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'
+    )
+    throw e
+  } 
+}
+
+//check balance of how much has been deposited
+document.getElementById('check_balance').onclick=async()=>{
+
+  const storage_content=document.getElementById('storage_content');
+
+  try{
+    let result= await window.marketplace_contract.storage_balance_of({"account_id":window.accountId})
+    storage_content.textContent=`${(result/10**24).toFixed(2)} NEAR`;
+  }
+  catch(e){
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'
+    )
+    throw e
+  }
+}
+
+//withdraw excessive storage or when you dont have any sales up
+document.getElementById('withdraw_storage').onclick=async()=>{
+  try{
+    await window.marketplace_contract.storage_withdraw({},
+                                              "300000000000000",
+                                              "1");
+  }
+  catch(e){
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'
+    )
+    throw e
+  }
+
 }
 
 document.getElementById('approve_for_marketplace').onclick = async (event) => {

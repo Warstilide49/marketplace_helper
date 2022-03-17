@@ -37,25 +37,32 @@
         <label>Media
         <input type="text" id="media" ></label>
       </form>
-      <button id="submit_form">Mint! </button><br>
+      <button id="mint_form">Mint! </button><br>
+    </div>
+    <div id="storage_interaction">
+      <h2>Interact with your storage deposit</h2>
+      <form>
+        <label>Deposit Storage
+        <input type="number" id="storage_amount" min="0.1" step="0.1" ></label>
+      </form>
+      <button id="deposit_storage">Deposit</button><br><br>
+      <div>
+        <button id="check_balance">Check Balance</button>
+        <button id="withdraw_storage">Withdraw unused storage</button>
+      </div>
+      <pre id="storage_content"></pre>
     </div>
     <div id="approve">
       <h2>Put up on Sale For Marketplace!</h2>
-      <p class="info_in_main">(This is an approval to put your token up for sale with the price in NEAR)</p>
       <p class="info_in_main">(Find token id in the "Tokens In Account" section)</p>
+      <p class="info_in_main"><strong>PLEASE CHECK YOUR STORAGE ON THE MARKETPLACE CONTRACT BEFORE PUTTING UP FOR SALE</strong></p> 
       <form>
         <label>Token_id
         <input type="text" id="approval_token_id" ></label>
-        <label>Sale Price
+        <label>Sale Price(In NEAR)
         <input type="number" min=0 id="sale_price" ></label>
       </form>
       <button id="approve_for_marketplace">Submit</button>
-    </div>
-    <div id="contract_info">
-      <h2>Query Our Contract!</h2>
-      <button id="nft-metadata">NFT Metadata</button>
-      <button id="nft-total-supply">Total Supply in Contract</button>
-      <pre id="content"></pre>
     </div>
     <div id="sales_section">
       <h2>Sales In Marketplace through our NFT Contract</h2>
