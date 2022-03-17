@@ -1,1 +1,78 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="https://warstilide49.github.io/marketplace_helper/favicon.3914b85e.ico"><link rel="apple-touch-icon" href="https://warstilide49.github.io/marketplace_helper/favicon.3914b85e.ico"><link rel="stylesheet" type="text/css" href="https://warstilide49.github.io/marketplace_helper/style.8fabc14a.css"><title>Work with NFTs!</title><script src="https://warstilide49.github.io/marketplace_helper/src.ce1b31c4.js" defer></script></head><body> <div id="signed-out-flow" style="display:none"> <h1 class="title">Welcome!</h1> <p> This is an interface to help communicate with the <a href="https://explorer.testnet.near.org/accounts/royalties.evin.testnet">NFT contract</a> and <a href="https://explorer.testnet.near.org/accounts/market.evin.testnet">Marketplace contract</a>. The frontend makes the use of <strong>near-api-js</strong> to communicate with the NEAR blockchain. The button below will sign you in using your NEAR testnet wallet. </p> <button id="sign-in-button">Sign in</button> <p></p> </div> <div id="signed-in-flow" style="display:none">  <div id="tokens"> <h2>Tokens In Account</h2> <label>Your Account Id <input type="text" id="account-id"></label> <button id="find-token"> Submit</button> </div> <div id="mint"> <h2>Mint An NFT on our contract!</h2> <form> <label>Title <input type="text" id="title"></label> <label>Description <input type="text" id="description"></label> <label>Media <input type="text" id="media"></label> </form> <button id="submit_form">Mint! </button><br> </div> <div id="approve"> <h2>Put up on Sale For Marketplace!</h2> <p class="info_in_main">(This is an approval to put your token up for sale with the price in NEAR)</p> <p class="info_in_main">(Find token id in the "Tokens In Account" section)</p> <form> <label>Token_id <input type="text" id="approval_token_id"></label> <label>Sale Price <input type="number" min="0" id="sale_price"></label> </form> <button id="approve_for_marketplace">Submit</button> </div> <div id="contract_info"> <h2>Query Our Contract!</h2> <button id="nft-metadata">NFT Metadata</button> <button id="nft-total-supply">Total Supply in Contract</button> <pre id="content"></pre> </div> <div id="sales_section"> <h2>Sales In Marketplace through our NFT Contract</h2> <div id="sales_content"></div> </div> <div id="exit"> <button id="sign-out-button">Sign out</button> </div> </div> </body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.df682a99.ico">
+  <link rel="apple-touch-icon" href="/favicon.df682a99.ico">
+  <link rel="stylesheet" type="text/css" href="/style.e308ff8e.css">
+  <title>Work with NFTs!</title>
+  <script src="/src.e31bb0bc.js" defer=""></script>
+<script src="/style.e308ff8e.js"></script></head>
+<body>
+  <div id="signed-out-flow" style="display: none">
+    <h1 class="title">Welcome!</h1>
+    <p>
+      This is an interface to help communicate with the <a href="https://explorer.testnet.near.org/accounts/royalties.evin.testnet">NFT contract</a> and <a href="https://explorer.testnet.near.org/accounts/market.evin.testnet">Marketplace contract</a>. The frontend makes the use of <strong>near-api-js</strong> to communicate with the NEAR blockchain. The button below will sign you in using your NEAR testnet wallet.
+    </p>
+      <button id="sign-in-button">Sign in</button>
+    <p></p>
+  </div>
+
+  <div id="signed-in-flow" style="display: none">
+    <!--Just to check working on another contract from the same frontend<button id="try_other_contract">Will call another Contract this</button>--> 
+    <div id="tokens">
+      <h2>Tokens In Account</h2>
+      <label>Your Account Id
+      <input type="text" id="account-id"></label>
+      <button id="find-token"> Submit</button>
+    </div>
+    <div id="mint">
+      <h2>Mint An NFT on our contract!</h2>
+      <form>
+        <label>Title
+        <input type="text" id="title"></label>
+        <label>Description
+        <input type="text" id="description"></label>
+        <label>Media
+        <input type="text" id="media"></label>
+      </form>
+      <button id="mint_form">Mint! </button><br>
+    </div>
+    <div id="storage_interaction">
+      <h2>Interact with your storage deposit</h2>
+      <form>
+        <label>Deposit Storage
+        <input type="number" id="storage_amount" min="0.1" step="0.1"></label>
+      </form>
+      <button id="deposit_storage">Deposit</button><br><br>
+      <div>
+        <button id="check_balance">Check Balance</button>
+        <button id="withdraw_storage">Withdraw unused storage</button>
+      </div>
+      <pre id="storage_content"></pre>
+    </div>
+    <div id="approve">
+      <h2>Put up on Sale For Marketplace!</h2>
+      <p class="info_in_main">(Find token id in the "Tokens In Account" section)</p>
+      <p class="info_in_main"><strong>PLEASE CHECK YOUR STORAGE ON THE MARKETPLACE CONTRACT BEFORE PUTTING UP FOR SALE</strong></p> 
+      <form>
+        <label>Token_id
+        <input type="text" id="approval_token_id"></label>
+        <label>Sale Price(In NEAR)
+        <input type="number" min="0" id="sale_price"></label>
+      </form>
+      <button id="approve_for_marketplace">Submit</button>
+    </div>
+    <div id="sales_section">
+      <h2>Sales In Marketplace through our NFT Contract</h2>
+      <div id="sales_content"></div>
+    </div>
+    <div id="exit">
+      <button id="sign-out-button">Sign out</button>  
+    </div>
+  </div>
+
+  
+</body>
+</html>
