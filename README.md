@@ -1,4 +1,4 @@
-# Markeplace helper
+# Marketplace helper
 
 Connects with both, the nft contract and the marketplace contract, and provides easy interaction with them.<br>
 nft contract: royalties.evin.testnet<br>
